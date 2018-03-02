@@ -95,7 +95,7 @@ def getVanillaItemsXml( packagePath ):
 	zipFile = zipfile.ZipFile(packagePath)
 	xmlFile = zipFile.open('text_ui_items.xml')
 	zipFile.close()
-	xmlRoot = xml.etree.ElementTree.fromstring( xmlFile.read() )
+	xmlRoot = xml.etree.ElementTree.fromstring( xmlFile.read().decode('utf8') )
 	# lower item id
 	for itemIdNode in xmlRoot.findall( ".//Cell[1]" ):
 		itemIdNode.text = itemIdNode.text.lower()
