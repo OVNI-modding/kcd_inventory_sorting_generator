@@ -22,6 +22,7 @@ import zipfile
 import xml.etree.ElementTree
 import os.path
 import os
+import sys
 from shutil import copyfile
 
 
@@ -56,14 +57,21 @@ def parseArguments():
 		global localizationPath
 		global description
 		global verbose
+		global hard
 
 		parser = argparse.ArgumentParser(
 			prog='Kingdom Come Deliverance - inventory sorting generator',
-			description = description,
+			description=description,
+		)
+		parser.add_argument(
+			'--hard',
+			action='store_true',
+			help='Treat warning as error'
 		)
 		parser.add_argument(
 			'--localizationPath',
-			required = True,
+			'-l',
+			required=True,
 			help='Path of game\'s Localization folder, where english_xml.pak, etc. are stored'
 		)
 		parser.add_argument(
@@ -74,6 +82,7 @@ def parseArguments():
 
 		args = parser.parse_args()
 		localizationPath = args.localizationPath
+		hard = args.hard
 		verbose = args.verbose
 
 
@@ -151,6 +160,9 @@ def modifyPackage( lang ):
 	global packagesPerLanguage
 
 	packagePath = os.path.join( localizationPath, packagesPerLanguage[lang] )
+	if not os.path.exists(packagePath) and not hard:
+		print( f'WARNING: File {packagesPerLanguage[lang]} was not found in {localizationPath}. We continue to build other .pak.', file=sys.stderr)
+		return
 	xmlRoot = getVanillaItemsXml(packagePath)
 	modifyXml(xmlRoot, lang)
 
