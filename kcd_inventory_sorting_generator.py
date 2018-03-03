@@ -152,6 +152,7 @@ def applyReplacement( xmlRoot, lang ):
 def addItemPrefixes( xmlRoot, lang ):
 	global categorizedItems_ini
 	global localizedCategories_ini
+	
 	for item,category in categorizedItems_ini.items('items'):
 		cells = xmlRoot.findall( ".//*[Cell='"+item+"']/Cell" )
 		if len(cells) < 3 :
