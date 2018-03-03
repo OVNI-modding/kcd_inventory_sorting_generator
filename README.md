@@ -1,4 +1,3 @@
-
 This tool allows to create modified Kingdom Come Deliverance's localization packages
 with category prefixes added before items names, to emulate sorting.
 
@@ -11,8 +10,8 @@ with category prefixes added before items names, to emulate sorting.
 
 # Usage
 
-Requires Python 3.6
-See kcd_inventory_sorting_generator.py -h for help
+* Requires Python 3.6
+* `py kcd_inventory_sorting_generator.py -h` for help
 
 # Other credits
 
