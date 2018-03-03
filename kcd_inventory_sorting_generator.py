@@ -178,6 +178,7 @@ def modifyPackage( lang ):
 
 	modifiedPackagePath = os.path.join( 'modified', packagesPerLanguage[lang] )
 	if not os.path.exists('modified'):
+		print( f'INFO: Create ./modified folder to place modified packages' )
 		os.makedirs('modified')
 	copyfile(packagePath, modifiedPackagePath)
 
