@@ -1,6 +1,5 @@
 #!/usr/bin/env python3.6
 
-#!python3.6
 #
 # Kingdom Come Deliverance - inventory sorting generator v1.1
 #
