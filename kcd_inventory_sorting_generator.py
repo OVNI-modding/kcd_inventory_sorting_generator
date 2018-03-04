@@ -50,9 +50,13 @@ class Kcd_isg:
   def start(self):
     self.parseArguments()
     self.parseConfigFiles()
-    for lang, pak in self.packagesPerLanguage.items():
-      self.modifyPackage(lang)
-  
+    try:
+      for lang, pak in self.packagesPerLanguage.items():
+          self.modifyPackage(lang)
+    except KeyboardInterrupt:
+      print(f'WARNING: You have interrupt the script execution. The output is probably broken, you can retry.')
+      sys.exit(84);
+
   # Declare all args of the script
   # Assign variables localizationPath, verbose, hard according to args passed.
   def parseArguments(self):
