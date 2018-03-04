@@ -16,3 +16,9 @@ with category prefixes added before items names, to emulate sorting.
 # Other credits
 
 Default localizedCategories.ini is based on Inventory Sorter by papirnehezek ( nexusmods.com/kingdomcomedeliverance/mods/189 )
+
+# Contributors
+
+OVNI-modding | [![](https://image.ibb.co/fKdNq7/Git_Hub_Mark_16px.png)](https://github.com/OVNI-modding/)
+
+benjaminaudet | [![](https://image.ibb.co/fKdNq7/Git_Hub_Mark_16px.png)](https://github.com/benjaminaudet/)
