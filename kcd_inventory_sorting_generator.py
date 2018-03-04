@@ -24,7 +24,7 @@ import os
 import sys
 from shutil import copyfile
 
-
+# Initialize globals variables
 verbose = False
 localizationPath = ''
 localizedCategories_ini = None
@@ -42,7 +42,7 @@ packagesPerLanguage = {
 	'spanish': 'spanish_xml.pak',
 }
 
-
+# Main function
 def main():
 	global localizationPath
 	global packagesPerLanguage
@@ -51,7 +51,8 @@ def main():
 	for lang, pak in packagesPerLanguage.items():
 		modifyPackage(lang)
 
-
+# Declare all args of the script
+# Assign variables localizationPath, verbose, hard according to args passed.
 def parseArguments():
 		global localizationPath
 		global description
@@ -84,7 +85,10 @@ def parseArguments():
 		hard = args.hard
 		verbose = args.verbose
 
-
+# Parse .ini files and fill localizedCategories_ini, categorizedItems_ini, replacements_ini globals variables.
+# localizedCategories.ini for prefixer for each language
+# categorizedItems.ini for item's category association
+# replacements.ini to override item's category association
 def parseConfigFiles():
 	global localizedCategories_ini
 	global categorizedItems_ini
@@ -100,7 +104,8 @@ def parseConfigFiles():
 	replacements_ini.optionxform = str
 	replacements_ini.read('replacements.ini')
 
-
+# Open and unzip .pak by path specified as argument.
+# Return xml object representing item list.
 def getVanillaItemsXml( packagePath ):
 	zipFile = zipfile.ZipFile(packagePath)
 	xmlFile = zipFile.open('text_ui_items.xml')
@@ -111,12 +116,14 @@ def getVanillaItemsXml( packagePath ):
 		itemIdNode.text = itemIdNode.text.lower()
 	return xmlRoot
 
-
+# Contains calls about replacements and prefixer adding.
+# Take the xml object representing item list and the wanted lang as parameters.
 def modifyXml( xmlRoot, lang ):
 	applyReplacement(xmlRoot, lang)
 	addItemPrefixes(xmlRoot, lang)
 
-
+# Modify the xml object with replacement specifications contained in replacements.ini.
+# Take the xml object representing item list and the wanted lang as parameters.
 def applyReplacement( xmlRoot, lang ):
 	global replacements_ini
 	global verbose
@@ -139,10 +146,12 @@ def applyReplacement( xmlRoot, lang ):
 				node.text = replacementTuple[0].capitalize()
 				if verbose: print( f'after : {node.text} \n' )
 
-
+# Add prefix to items names.
+# Take the xml object representing item list and the wanted lang as parameters.
 def addItemPrefixes( xmlRoot, lang ):
 	global categorizedItems_ini
 	global localizedCategories_ini
+	
 	for item,category in categorizedItems_ini.items('items'):
 		cells = xmlRoot.findall( ".//*[Cell='"+item+"']/Cell" )
 		if len(cells) < 3 :
@@ -153,7 +162,8 @@ def addItemPrefixes( xmlRoot, lang ):
 		#cells[1].text = prefix + str(cells[1].text or '')
 		cells[2].text = prefix + str(cells[2].text or '')
 
-
+# Create the modified package with modified values.
+# Take the wanted lang as parameter.
 def modifyPackage( lang ):
 	global localizationPath
 	global packagesPerLanguage
@@ -167,6 +177,7 @@ def modifyPackage( lang ):
 
 	modifiedPackagePath = os.path.join( 'modified', packagesPerLanguage[lang] )
 	if not os.path.exists('modified'):
+		print( f'INFO: Create ./modified folder to place modified packages' )
 		os.makedirs('modified')
 	copyfile(packagePath, modifiedPackagePath)
 
@@ -183,6 +194,6 @@ def modifyPackage( lang ):
 	modifiedPackagePathFull = os.path.join( os.path.dirname(os.path.realpath(__file__)), modifiedPackagePath )
 	print( f'Created modded package {modifiedPackagePathFull}' )
 
-
+# Main function call
 if __name__ == '__main__':
     main()
