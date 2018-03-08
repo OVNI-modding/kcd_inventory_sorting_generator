@@ -1,3 +1,5 @@
+[![Join the chat at https://gitter.im/kcd_inventory_sorting_generator/Lobby](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/kcd_inventory_sorting_generator/Lobby)
+
 This tool allows to create modified Kingdom Come Deliverance's localization packages
 with category prefixes added before items names, to emulate sorting.
 
