@@ -45,7 +45,7 @@ class Kcd_isg:
       'russian': 'russian_xml.pak',
       'spanish': 'spanish_xml.pak',
     }
-  
+  print('lol')
   # Start function
   def start(self):
     self.parseArguments()
